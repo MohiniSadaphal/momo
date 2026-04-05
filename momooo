@@ -1,0 +1,139 @@
+Step 1: Start XAMPP 
+1. Open XAMPP Control Panel 
+2. Click Start on: 
+o Apache 
+o MySQL 
+Step 2: Open phpMyAdmin 
+1. Open browser 
+2. Go to: 
+http://localhost/phpmyadmin 
+Step 3: Create Database 
+Click SQL tab and run: 
+CREATE DATABASE Company; 
+USE Company; 
+Q1Create a database and table for employee and perform INSERT, UPDATE, DELETE and SELECT. 
+CREATE TABLE Employee ( 
+EmpID INT PRIMARY KEY, 
+Name VARCHAR(50), 
+Salary INT 
+); 
+INSERT INTO Employee (EmpID, Name, Salary) 
+VALUES (1, 'Rahul', 30000); 
+UPDATE Employee 
+SET Salary = 35000 
+WHERE EmpID = 1; 
+SELECT * FROM Employee; 
+DELETE FROM Employee 
+WHERE EmpID = 1; 
+Q2.Design tables for Roadway Travel Management System and perform operations. 
+CREATE TABLE Customer ( 
+CustID INT PRIMARY KEY, 
+Name VARCHAR(50) 
+); 
+CREATE TABLE Route ( 
+RouteID INT PRIMARY KEY, 
+Source VARCHAR(50), 
+Destination VARCHAR(50) 
+); 
+CREATE TABLE Booking ( 
+BookingID INT PRIMARY KEY, 
+CustID INT, 
+RouteID INT, 
+FOREIGN KEY (CustID) REFERENCES Customer(CustID), 
+FOREIGN KEY (RouteID) REFERENCES Route(RouteID) 
+); 
+INSERT INTO Customer VALUES (1, 'Amit'); 
+INSERT INTO Route VALUES (101, 'Pune', 'Mumbai'); 
+INSERT INTO Booking VALUES (1, 1, 101); 
+Q3.Create Employee table using different data types and perform queries. 
+CREATE TABLE Employee2 ( 
+EmpID INT, 
+Name VARCHAR(50), 
+Salary FLOAT, 
+JoiningDate DATE, 
+ActiveStatus BOOLEAN 
+); 
+INSERT INTO Employee2 
+VALUES (1, 'Riya', 25000, '2024-01-01', TRUE); 
+SELECT * FROM Employee2; 
+Q4.Create employee table with Primary Key, Foreign Key and Unique constraints. 
+CREATE TABLE Department ( 
+DeptID INT PRIMARY KEY, 
+DeptName VARCHAR(50) UNIQUE 
+); 
+CREATE TABLE Employee3 ( 
+EmpID INT PRIMARY KEY, 
+Name VARCHAR(50), 
+DeptID INT, 
+Email VARCHAR(50) UNIQUE, 
+FOREIGN KEY (DeptID) REFERENCES Department(DeptID) 
+); 
+INSERT INTO Department VALUES (1, 'HR'); 
+INSERT INTO Employee3 
+VALUES (101, 'Rahul', 1, 'rahul@gmail.com'); 
+Q5Create Customer table using NOT NULL, CHECK and DEFAULT constraints. 
+CREATE TABLE Customer2 ( 
+CustID INT PRIMARY KEY, 
+Name VARCHAR(50) NOT NULL, 
+Age INT CHECK (Age >= 18), 
+City VARCHAR(50) DEFAULT 'Pune' 
+); 
+INSERT INTO Customer2 
+VALUES (1, 'Amit', 25, 'Mumbai'); 
+Note: 
+This will give error (correct behavior): 
+INSERT INTO Customer2 
+VALUES (2, NULL, 15, 'Delhi'); 
+Because: 
+• Name cannot be NULL 
+• Age must be ≥ 18 
+Q6Use DDL and DML commands and display data using SELECT. 
+CREATE TABLE Student ( 
+ID INT PRIMARY KEY, 
+Name VARCHAR(50), 
+Marks INT 
+); 
+INSERT INTO Student VALUES (1, 'Riya', 85); 
+UPDATE Student 
+SET Marks = 90 
+WHERE ID = 1; 
+SELECT * FROM Student; 
+DELETE FROM Student 
+WHERE ID = 1; 
+Q7Normalize customer orders database into 1NF, 2NF, 3NF and BCNF. 
+CREATE TABLE Customers ( 
+CustomerID INT PRIMARY KEY, 
+Name VARCHAR(50) 
+); 
+CREATE TABLE Products ( 
+ProductID INT PRIMARY KEY, 
+ProductName VARCHAR(50) 
+); 
+CREATE TABLE Orders ( 
+OrderID INT PRIMARY KEY, 
+CustomerID INT, 
+FOREIGN KEY (CustomerID) 
+REFERENCES Customers(CustomerID) 
+); 
+CREATE TABLE OrderDetails ( 
+OrderID INT, 
+ProductID INT, 
+Quantity INT, 
+FOREIGN KEY (OrderID) 
+REFERENCES Orders(OrderID), 
+FOREIGN KEY (ProductID) 
+REFERENCES Products(ProductID) 
+); 
+Q8Create Sales table and apply aggregate functions. 
+CREATE TABLE Sales ( 
+SaleID INT, 
+Amount INT 
+); 
+INSERT INTO Sales VALUES (1, 500); 
+INSERT INTO Sales VALUES (2, 1000); 
+INSERT INTO Sales VALUES (3, 700); 
+SELECT COUNT(*) FROM Sales; 
+SELECT SUM(Amount) FROM Sales; 
+SELECT AVG(Amount) FROM Sales; 
+SELECT MIN(Amount) FROM Sales; 
+SELECT MAX(Amount) FROM Sales; 
